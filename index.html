@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#181b1a">
+<title>Terra Brava — Simulador de máquinas</title>
+<link rel="icon" href="assets/icone-32.png">
+<link rel="apple-touch-icon" href="assets/icone-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preload" href="assets/capa.jpg" as="image">
+<link rel="stylesheet" href="style.css">
+<script defer src="assets/argila.js"></script>
+<script defer src="engine.js"></script>
+<script defer src="world.js"></script>
+<script defer src="machines.js"></script>
+<script defer src="obra.js"></script>
+<script defer src="simulation.js"></script>
+<script defer src="ui.js"></script>
+<script defer src="walking.js"></script>
+<script defer src="gamepad.js"></script>
+<script defer src="game.js"></script>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="symbols"><defs>
+<symbol id="i-mark" viewBox="0 0 41 32"><path d="M0 28 17.2 2l5 7.45L10 28Zm14.4 0 11.7-17.5L38 28h-9.3l-2.6-4.3-2.8 4.3Z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24"><path d="M8.3 6H5.7c-1.5 0-2.5 1.1-3 3l-1 5.8c-.4 3.1 1.5 4.5 3.6 2.9L8.6 15h6.8l3.3 2.7c2.1 1.6 4 .2 3.6-2.9l-1-5.8c-.5-1.9-1.5-3-3-3h-3L14 7H10zM6.7 9v4M4.7 11h4M16 10.5h.1M18.7 12.6h.1"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M19 10c0 5.4-7 11-7 11S5 15.4 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.4"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="m7 4 14 8-14 8Z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-machine" viewBox="0 0 24 24"><path d="M2 18h11a2 2 0 0 1 0 4H4a2 2 0 0 1-2-2Zm2-3V9h5l3 6H4Zm8 0 4-11 3 2 2 9m-3 1 3-1 1 3h-5Z"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></symbol>
+<symbol id="i-cam" viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></symbol>
+<symbol id="i-sound" viewBox="0 0 24 24"><path d="m3 9 4 0 5-4v14l-5-4H3zm13-.6c2.4 1.8 2.4 5.4 0 7.2m2.7-10c4.6 3.2 4.6 9.7 0 12.8"/></symbol>
+<symbol id="i-mute" viewBox="0 0 24 24"><path d="m3 9 4 0 5-4v14l-5-4H3zm13 0 5 6m0-6-5 6"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M2.5 9 12 3l9.5 6v11.5h-4V11H7v9.5H2.5Zm6.5 5h6m-6 3h6"/></symbol>
+<symbol id="i-walk" viewBox="0 0 24 24"><circle cx="14.2" cy="4.1" r="2"/><path d="m7 13 3-5 4.6-.8 2.3 5 3.5 1.3m-8.8-4.8-.8 6 4 3.2 1.6 5m-5.6-8.2L8 19.3 4.6 22"/></symbol>
+<symbol id="i-work" viewBox="0 0 24 24"><path d="M4 20h16M7 18l4-9M8 7l3-4 4 3-3 4zM14 18l3-4 3 3"/><circle cx="17.5" cy="12.5" r="2"/></symbol>
+<symbol id="i-steer" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.3"/><path d="m3.5 9.7 6.5 1m10.5-1L14 11m-2 3v6.8"/></symbol>
+<symbol id="i-brake" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.2"/><path d="M4.5 5a10.2 10.2 0 0 0 0 14m15-14a10.2 10.2 0 0 1 0 14m-9-4V9h2.2a1.6 1.6 0 1 1 0 3.2h-2.2"/></symbol>
+<symbol id="i-swap" viewBox="0 0 24 24"><path d="M3 7h16m-3-3 3 3-3 3M21 17H5m3-3-3 3 3 3"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></symbol>
+<symbol id="i-mission" viewBox="0 0 24 24"><path d="M5 21V4m1 1c4-3 7 3 13 0v8c-6 3-9-3-13 0"/></symbol>
+<symbol id="i-map" viewBox="0 0 24 24"><path d="m3 5 6-2 6 3 6-2v15l-6 2-6-3-6 2Zm6-2v15m6-12v15"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><path d="M2 16a10 10 0 1 1 20 0m-10-3 4-5M4.5 12.5l2 .5m-.2-5 1.6 1.5M12 5.5V8m7.5 4.5-2 .5"/><circle cx="12" cy="14" r="1.5"/></symbol>
+</defs></svg>
+<canvas id="scene" aria-label="Canteiro Serra Alta em três dimensões"></canvas>
+<main id="cover" aria-label="Menu inicial de Terra Brava"><div class="cover-art"><img src="assets/capa.jpg" alt="Terra Brava • frota do canteiro" draggable="false"><button id="coverStart" aria-label="Começar"></button><button id="coverSettings" aria-label="Configuração"></button></div></main>
+<main id="garage" class="garage" hidden>
+ <header class="masthead">
+   <a class="brand" href="#" id="brand" aria-label="Terra Brava, garagem"><svg><use href="#i-mark"/></svg><span>TERRA <em>BRAVA</em></span></a>
+   <div class="mast-actions"><span class="location"><svg><use href="#i-pin"/></svg>Serra Alta, MG</span><button id="garageHelp" class="header-button"><svg><use href="#i-help"/></svg><span>Controles</span></button></div>
+ </header>
+ <section class="hero" id="hero" data-type="exc" aria-labelledby="modelTitle">
+   <div class="stage-art" aria-hidden="true"><div class="ground-shadow"></div><img id="heroImage" src="assets/exc.webp" alt="" draggable="false"></div>
+   <div class="art-shade"></div>
+   <div class="hero-content"><div class="hero-kicker"><span></span> SIMULADOR DE MÁQUINAS</div>
+    <h1 id="modelTitle">Escavadeira<br>hidráulica</h1>
+    <p id="modelDescription">Escave com o braço articulado e gire a torre para carregar o caminhão.</p>
+    <button id="start" class="start-button"><svg><use href="#i-play"/></svg><span id="startLabel">Operar máquina</span></button>
+   </div>
+   <div class="hero-location"><svg><use href="#i-pin"/></svg>Canteiro Serra Alta</div>
+ </section>
+ <section class="fleet" aria-labelledby="fleetTitle">
+   <div class="fleet-heading"><h2 id="fleetTitle">Frota do canteiro</h2><span>6 veículos</span></div>
+   <div class="fleet-list" role="group" aria-label="Escolher máquina" id="fleetList"></div>
+ </section>
+</main>
+<div id="hud" class="hud" hidden>
+ <div class="hud-brand game-glass" id="machinePanel"><svg class="mark"><use href="#i-mark"/></svg><div><strong id="hudName">Escavadeira hidráulica</strong><small id="statusLine">Serra Alta</small></div></div>
+ <nav class="hud-nav" aria-label="Opções de jogo">
+   <button id="sound" class="hud-icon" aria-label="Alternar som"><svg><use href="#i-sound"/></svg></button>
+   <button id="camera" class="hud-icon" aria-label="Alternar câmera" title="Alternar câmera (C)"><svg><use href="#i-cam"/></svg></button>
+   <button id="hudHelp" class="hud-icon" aria-label="Guia de controles" title="Guia de controles"><svg><use href="#i-help"/></svg></button>
+   <button id="returnGarage" class="hud-icon" aria-label="Voltar à garagem" title="Garagem (M)"><svg><use href="#i-home"/></svg></button>
+ </nav>
+ <section class="mission game-glass" aria-label="Objetivo"><div class="mission-head"><svg><use href="#i-mission"/></svg><span>Objetivo</span><strong id="progressText">0%</strong></div><h2 id="objective">Escave a área de corte</h2><p id="hint"></p><div class="progress-track"><i id="progressBar"></i></div></section>
+ <button class="radar game-glass" id="mapButton" aria-label="Ampliar mapa do canteiro" title="Mapa"><canvas id="radar" width="192" height="160"></canvas></button>
+ <div class="touch-area" id="leftControl"><div class="pad-head" id="leftLabel">Braço · Giro</div><div class="stick" id="leftStick" role="group" aria-label="Alavanca esquerda"><i class="pad-ring"></i><i class="cross v"></i><i class="cross h"></i><i class="pad-nub"></i></div></div>
+ <div class="touch-area" id="rightControl"><div class="pad-head" id="rightLabel">Lança · Caçamba</div><div class="stick" id="rightStick" role="group" aria-label="Alavanca direita"><i class="pad-ring"></i><i class="cross v"></i><i class="cross h"></i><i class="pad-nub"></i></div></div>
+ <div class="control-center">
+   <span class="near-cab game-glass" id="nearCab" hidden></span>
+   <div class="control-tools"><button class="hud-pill" id="ignition">Ligar motor</button><button class="hud-pill" id="service" hidden>Atender</button><button class="hud-pill" id="interact" aria-label="Sair da máquina (E)"><svg><use href="#i-walk"/></svg><span>Sair</span></button><button class="hud-pill" id="toolToggle" hidden><svg><use href="#i-swap"/></svg><span>Dianteira</span></button><button class="hud-pill" id="brake" aria-label="Segurar freio"><svg><use href="#i-brake"/></svg><span>Freio</span></button></div>
+   <div class="mode-toggle" id="modeSelector" role="group" aria-label="Modo de comando"><button id="workMode" aria-pressed="true"><svg><use href="#i-work"/></svg><span>Trabalho</span></button><button id="driveMode" aria-pressed="false"><svg><use href="#i-steer"/></svg><span>Condução</span></button></div>
+   <div class="instruments" id="instruments"><span><b id="speed">0</b> km/h</span><i></i><span id="loadWrap"><b id="load">0,0</b> m³</span><i id="loadDivider"></i><span><b id="rpm">800</b> rpm</span></div>
+ </div>
+ <div class="desktop-keys game-glass" id="desktopKeys"><span><kbd>WASD</kbd><span id="keyMove">Dirigir</span></span><span id="keyHyd"><kbd>TGFH</kbd><kbd>IKJL</kbd> Hidráulica</span><span><kbd>E</kbd><span id="keyInteract">Sair</span></span></div>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="guide" aria-labelledby="guideTitle"><div class="dialog-top"><div><span class="section-tag">MANUAL DO OPERADOR</span><h2 id="guideTitle">Configuração</h2></div><button id="closeGuide" class="dismiss" type="button" aria-label="Fechar"><svg><use href="#i-close"/></svg></button></div>
+ <div class="guide-scroll">
+   <fieldset class="help-tabs" aria-label="Tipo de comando"><button id="touchHelp" type="button" aria-pressed="true">Tela de toque</button><button id="keyHelp" type="button" aria-pressed="false">Teclado</button><button id="padHelp" type="button" aria-pressed="false">Gamepad</button></fieldset>
+   <label class="guide-select">Máquina <select id="helpMachine"><option value="exc">Escavadeira hidráulica</option><option value="back">Retroescavadeira</option><option value="grader">Motoniveladora</option><option value="truck">Caminhão basculante</option><option value="bike">Moto de trilha</option><option value="pickup">Picape de serviço</option></select></label>
+   <div class="guide-scheme"><span>Demais eixos hidráulicos</span><div role="group" aria-label="Sentido das alavancas hidráulicas"><button id="mirrorScheme" type="button" aria-pressed="true">Espelhado</button><button id="oldScheme" type="button" aria-pressed="false">Anterior</button></div></div>
+   <div id="guideContent"></div>
+ </div>
+</dialog>
+<dialog id="mapModal" aria-labelledby="mapTitle"><div class="dialog-top"><div><span class="section-tag">SERRA ALTA · MG</span><h2 id="mapTitle">Mapa do canteiro</h2></div><button id="closeMap" class="dismiss" type="button" aria-label="Fechar mapa"><svg><use href="#i-close"/></svg></button></div><canvas id="mapLarge" width="620" height="410"></canvas><div class="legend"><span><i class="lcut"></i>Corte</span><span><i class="ldump"></i>Descarga</span><span><i class="lgrade"></i>Estrada</span><span><i class="lyou"></i>Você</span></div></dialog>
+<noscript>Ative o JavaScript no navegador para jogar Terra Brava.</noscript>
+</body></html>

@@ -1,0 +1,71 @@
+TERRA BRAVA • Serra Alta / Vila Serra
+Edição Estrada da Vila • projeto web editável
+
+ABRIR
+Extraia o ZIP inteiro e abra index.html no navegador do PC. Clique em COMEÇAR.
+Para jogar no iPhone 13, use em paisagem. Com um PC no mesmo Wi-Fi, abra um
+terminal na pasta extraída e execute python -m http.server 8000 (ou py -m
+http.server 8000 no Windows). No Safari, abra http://IP-DO-PC:8000, trocando
+IP-DO-PC pelo endereço local do PC. Também é possível servir os mesmos
+arquivos em HTTPS. Os recursos são locais. Para gamepad, prefira HTTPS ou
+localhost no PC. Conecte o controle padrão e pressione um botão.
+
+PRIMEIRO TURNO
+Você começa no posto da escavadeira com o motor desligado. Use R ou o botão
+Ligar motor. WASD/setas dirigem. Espaço freia. E sai após parar ou entra junto
+à cabine. C troca a câmera e M abre a garagem com os seis veículos. A moto
+mostra o piloto. No celular, use Condução para dirigir e Trabalho para operar
+o braço. Arraste o cenário para orbitar. O manual em CONFIGURAÇÃO explica as
+alavancas de cada máquina, com abas para toque, teclado e gamepad.
+
+J ou analógico direito à ESQUERDA fecha a concha. L ou DIREITA abre.
+Vale para a escavadeira e para as duas conchas da retro (X troca o implemento).
+Na configuração inicial, K abaixa, I levanta, G estende e T recolhe o braço.
+Encoste os dentes, feche e levante. Na escavadeira, estenda o braço e gire
+a torre com F/H até a guia ficar verde sobre a carroceria. Abra para carregar.
+Dirija o basculante até a área de descarga da vila, pare com a traseira dentro
+da faixa e levante a caixa com I. A terra que cai fora da carroceria forma
+aterro. As capacidades são 1,10 m³ na escavadeira, 0,95 / 0,38 m³ na retro
+e 7 m³ no caminhão.
+
+GAMEPAD
+Na escavadeira, L1/L2 movem a esteira esquerda à frente/atrás, R1/R2 fazem
+o mesmo na direita. L1+R1 avança, L2+R2 recua, L1+R2 gira para a direita e
+R1+L2 para a esquerda. Os analógicos operam a hidráulica ao mesmo tempo.
+Nas rodas, R2 acelera, L2 dá ré e o analógico esquerdo esterça na condução.
+A entra/sai, X liga/desliga, B freia, R3 troca a câmera, Y troca o implemento
+da retro e Menu/Start executa o serviço. L3 alterna os modos de comando.
+No menu, use o direcional e A. No manual, use B para voltar.
+
+OBRA E ABASTECIMENTO
+Procure a placa OBRA entre o pátio e a patrol. Pare próximo (ou vá a pé)
+e pressione V, Menu/Start ou Aceitar obra. Guie a patrol entre as estacas
+até a cidade com a lâmina baixa. J/L regulam o ângulo. O mapa mostra em
+verde os metros pagos e em laranja os demais. Cada metro recebe R$ 25 após
+redistribuir pelo menos 0,045 m³ com a lâmina naquela faixa. São 50 metros,
+até R$ 1.250. A escavação e o nivelamento livres também funcionam fora da obra.
+Na picape, pare no depósito junto à oficina e use V ou Atender para carregar
+160 L de diesel e 20 L de óleo. Pare a até 6,5 m da máquina desligada e use
+o mesmo comando. A transferência respeita a carga e o espaço em cada tanque.
+
+SALVAR E EDITAR
+O salvamento é automático no navegador e ao voltar à garagem. Para retomar,
+use o mesmo navegador e endereço. Guarde os dados do site. O saldo vem dos
+metros medidos no mesmo registro do terreno, da frota e do material em trânsito.
+engine.js renderiza a cena. machines.js contém os modelos 3D articulados.
+world.js cria o mapa e a superfície deformável. simulation.js controla tração,
+hidráulica e terra. obra.js mede o contrato. game.js, gamepad.js, walking.js
+e ui.js controlam a partida, entradas, personagem e interface.
+assets contém a capa, o ícone original, os recursos web e a textura de argila
+procedural local (PNG e amostras JS para WebGL offline). O ZIP recebido trazia
+quatro máquinas e salvamento v1, sem número de lançamento. Preservamos os
+modelos e as artes originais. A licença das fontes está em assets/Roboto-LICENSE.txt.
+As duas artes de menu e ícone foram fornecidas para este projeto.
+android/app/src/main/res/mipmap-* e ios/Assets.xcassets/AppIcon.appiconset
+contêm os recursos para empacotamento nativo. Esta distribuição roda na web.
+
+VERIFICAÇÃO
+Testes de integração executam o JavaScript e o renderizador por software da
+cópia extraída. Foram simulados o teclado, os eventos dos joysticks de toque,
+um gamepad padrão e uma tela de 844 × 390. O iPhone, o controle físico, o
+Safari e a taxa de quadros em aparelho real não foram aferidos.
